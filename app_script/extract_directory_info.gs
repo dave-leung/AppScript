@@ -1,5 +1,5 @@
 function listFilesAndSubdirectories() {
-    var folderId = ""; // Replace with your folder ID
+    var folderId = " "; // Replace with your folder ID
     var folder = DriveApp.getFolderById(folderId);
     
     var logSheet = createLogSheet(); // Create a new sheet for logging

@@ -1,6 +1,6 @@
 function copyDriveStructureWithContent() {
-  var sourceFolderId = " "; # Input your source ID here
-  var targetFolderId = " "; # Input your destination ID here
+  var sourceFolderId = " "; // Input your source ID here
+  var targetFolderId = " "; // Input your destination ID here
   
   var sourceFolder = DriveApp.getFolderById(sourceFolderId);
   var targetFolder = DriveApp.getFolderById(targetFolderId);
