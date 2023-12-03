@@ -1,3 +1,7 @@
+/*
+Google Tasks API: https://developers.google.com/tasks/reference/rest/v1/tasks#Task
+*/
+
 function exportTasksToSheets() {
     
     var optionalArgs = {
@@ -26,18 +30,22 @@ function exportTasksToSheets() {
     
     // Write headers
     sheet.getRange(1, 1).setValue('Task Title');
-    sheet.getRange(1, 2).setValue('Start Time');
-    sheet.getRange(1, 3).setValue('End Time');
-    sheet.getRange(1, 4).setValue('Completed');
+    sheet.getRange(1, 2).setValue('End Time');
+    sheet.getRange(1, 3).setValue('Completed');
+    sheet.getRange(1, 4).setValue('Notes');
+    sheet.getRange(1, 5).setValue('Status');
+    sheet.getRange(1, 6).setValue('Parent Task');
     
     // Write tasks
-    for (var i = 0; i < tasks.length; i++) {
-        var task = tasks[i];
+    for (var i = 0; i < tasks.items.length; i++) {
+        var task = tasks.items[i];
         var row = i + 2;
         
-        sheet.getRange(row, 1).setValue(task.getTitle());
-        sheet.getRange(row, 2).setValue(task.getStartTime());
-        sheet.getRange(row, 3).setValue(task.getEndTime());
-        sheet.getRange(row, 4).setValue(task.isAllDayEvent() ? 'Yes' : 'No');
+        sheet.getRange(row, 1).setValue(task.title);
+        sheet.getRange(row, 2).setValue(task.due ? task.due.split('T')[0] : ''); // Update to capture only the date
+        sheet.getRange(row, 3).setValue(task.completed ? 'Yes' : 'No');
+        sheet.getRange(row, 4).setValue(task.notes);
+        sheet.getRange(row, 5).setValue(task.status);
+        sheet.getRange(row, 6).setValue(task.parent);
     }
 }
