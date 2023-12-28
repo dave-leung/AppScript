@@ -1,13 +1,25 @@
-function listFoldersFiles() {
+function createSheetsForFolders() {
   var spreadsheetId = 'YOUR_SPREADSHEET_ID'; // Replace with your spreadsheet ID
-  var sheetName = 'Sheet1'; // Replace with your sheet name
-  var sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName(sheetName);
-  sheet.clear();
-  sheet.appendRow(["Folder Path", "Folder Name", "File Name", "File Type"]);
+  var folderIds = ["FOLDER_ID_1", "FOLDER_ID_2", "FOLDER_ID_3"]; // Replace with your folder IDs
 
-  var folderId = "YOUR_FOLDER_ID"; // Replace with your folder ID
-  var folder = DriveApp.getFolderById(folderId);
-  listFolderContents(folder, "", sheet);
+  for (var i = 0; i < folderIds.length; i++) {
+    var folderId = folderIds[i];
+    var folder = DriveApp.getFolderById(folderId);
+    var folderName = folder.getName();
+    var sheetName = folderName.replace(/[\\\/:*?\"<>|]/g, ''); // Remove invalid characters from folder name
+
+    var spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+    var sheet = spreadsheet.getSheetByName(sheetName);
+
+    if (sheet) {
+      sheet.clear();
+    } else {
+      sheet = spreadsheet.insertSheet(sheetName);
+      sheet.appendRow(["Folder Path", "Folder Name", "File Name", "File Type"]);
+    }
+
+    listFolderContents(folder, "", sheet);
+  }
 }
 
 function listFolderContents(folder, path, sheet) {
