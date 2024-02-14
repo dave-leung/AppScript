@@ -1,8 +1,0 @@
-# Setup Google Cloud Directory Sync (GCDS) for an Organization
-
-# Prerequisites
-1. GCDS
-2. Password sync (optional)
-3. Cloud Identity account
-4. LDAP server in your organization
-
